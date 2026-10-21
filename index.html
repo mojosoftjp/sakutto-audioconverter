@@ -1,129 +1,37 @@
 <!DOCTYPE html>
-<html lang="ja" class="lang-ja">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>さくっと音声変換｜音声ファイルの一括変換・音量調整・カット</title>
-<meta name="description" content="音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。複数ファイルの一括変換で音声の整理や編集を効率化。Microsoft Storeで購入できます。">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--primary:#D97706;--primary-dark:#B45309;--accent:#F59E0B;--bg:#FFFBEB;--card:#FFFFFF;--text:#1E293B;--muted:#64748B;--border:#FDE68A;--radius:12px}
-body{font-family:"Segoe UI","Meiryo","Hiragino Sans",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
-a{color:var(--primary);text-decoration:none}
-a:hover{text-decoration:underline}
-
-/* Language toggle */
-.lang-toggle{position:fixed;top:16px;right:16px;z-index:1000;background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.85rem;font-weight:600;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.1);transition:background .2s}
-.lang-toggle:hover{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.15)}
-[data-lang="ja"] .en,[data-lang="en"] .ja{display:none!important}
-
-/* Hero */
-.hero{background:linear-gradient(135deg,#92400E 0%,#D97706 40%,#FBBF24 100%);color:#fff;padding:80px 24px 64px;text-align:center;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;bottom:-2px;left:0;right:0;height:48px;background:var(--bg);clip-path:ellipse(55% 100% at 50% 100%)}
-.hero-title{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
-.hero-title img{width:64px;height:64px;border-radius:16px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.25))}
-.hero h1{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;margin:0}
-.hero .subtitle{font-size:1.15rem;opacity:.9;margin-bottom:32px;font-weight:400}
-.hero .tagline{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:6px 20px;font-size:.9rem;margin-bottom:24px;backdrop-filter:blur(4px)}
-.hero .formats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
-.hero .format-badge{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:4px 14px;font-size:.82rem;font-weight:600;backdrop-filter:blur(4px)}
-.cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:999px;font-size:1rem;font-weight:600;transition:transform .15s,box-shadow .15s;cursor:pointer;border:none}
-.btn-primary{background:#fff;color:var(--primary)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18);text-decoration:none}
-.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
-.btn-outline:hover{background:rgba(255,255,255,.12);text-decoration:none}
-
-/* Container */
-.container{max-width:960px;margin:0 auto;padding:0 24px}
-
-/* Section */
-.section{padding:64px 0}
-.section-title{font-size:1.6rem;font-weight:700;text-align:center;margin-bottom:12px}
-.section-desc{text-align:center;color:var(--muted);margin-bottom:48px;font-size:1.05rem}
-
-/* Feature cards */
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.feature-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;transition:transform .2s,box-shadow .2s}
-.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(217,119,6,.12)}
-.feature-card .feature-icon{font-size:2.4rem;margin-bottom:12px;display:block}
-.feature-card .feature-tag{display:inline-block;font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-bottom:12px}
-.feature-card .feature-tag.convert{background:#FFFBEB;color:#D97706}
-.feature-card .feature-tag.volume{background:#FFF1F2;color:#E11D48}
-.feature-card .feature-tag.trim{background:#EFF6FF;color:#2563EB}
-.feature-card h3{font-size:1.2rem;margin-bottom:8px;font-weight:700}
-.feature-card p{font-size:.92rem;color:var(--muted);line-height:1.7}
-.feature-card ul{margin-top:10px;padding-left:18px;font-size:.88rem;color:var(--muted)}
-.feature-card ul li{margin-bottom:4px}
-
-/* Feature detail rows */
-.feature-row{display:flex;gap:40px;align-items:center;margin-bottom:56px;flex-wrap:wrap}
-.feature-row:last-child{margin-bottom:0}
-.feature-row.reverse{flex-direction:row-reverse}
-.feature-img{flex:1 1 55%;min-width:280px}
-.feature-img img{width:100%;border-radius:var(--radius);box-shadow:0 8px 32px rgba(0,0,0,.10);border:1px solid var(--border);transition:transform .2s,box-shadow .2s}
-.feature-img img:hover{transform:scale(1.02);box-shadow:0 12px 40px rgba(0,0,0,.15)}
-.feature-info{flex:1 1 35%;min-width:220px}
-.feature-info .feature-icon{font-size:2.2rem;margin-bottom:8px;display:block}
-.feature-info h3{font-size:1.25rem;margin-bottom:8px;font-weight:700}
-.feature-info p{font-size:.95rem;color:var(--muted);line-height:1.7}
-.feature-info .feature-tag{display:inline-block;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;margin-bottom:10px}
-.feature-info .feature-tag.convert{background:#FFFBEB;color:#D97706}
-.feature-info .feature-tag.volume{background:#FFF1F2;color:#E11D48}
-.feature-info .feature-tag.trim{background:#EFF6FF;color:#2563EB}
-
-/* Points */
-.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:40px}
-.point{display:flex;gap:16px;align-items:flex-start}
-.point-icon{flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#FDE68A,#FFFBEB);display:flex;align-items:center;justify-content:center;font-size:1.4rem}
-.point h3{font-size:1rem;margin-bottom:4px}
-.point p{font-size:.9rem;color:var(--muted)}
-
-/* Steps */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;counter-reset:step}
-.step{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;position:relative}
-.step::before{counter-increment:step;content:counter(step);position:absolute;top:-14px;left:20px;width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
-.step h3{margin-top:8px;font-size:1rem;margin-bottom:6px}
-.step p{font-size:.9rem;color:var(--muted)}
-
-/* Footer */
-footer{background:#1E293B;color:#CBD5E1;padding:40px 24px;text-align:center;font-size:.88rem}
-footer a{color:#FCD34D}
-footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
-footer .copyright{opacity:.7;margin-top:8px}
-
-/* Responsive */
-@media(max-width:700px){
-  .hero h1{font-size:2rem}
-  .hero .subtitle{font-size:1rem}
-  .feature-grid{grid-template-columns:1fr}
-  .feature-row,.feature-row.reverse{flex-direction:column}
-  .feature-img{min-width:100%}
-  .feature-info{min-width:100%;text-align:center}
-  .section{padding:48px 0}
-  .feature-row{margin-bottom:40px}
-}
-</style>
-  <link rel="canonical" href="https://mojosoftjp.github.io/sakutto-audioconverter/">
-  <link rel="alternate" href="https://mojosoftjp.github.io/sakutto-audioconverter/" hreflang="ja">
-  <link rel="alternate" href="https://mojosoftjp.github.io/sakutto-audioconverter/en/" hreflang="en">
-  <link rel="alternate" href="https://mojosoftjp.github.io/sakutto-audioconverter/" hreflang="x-default">
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta property="og:title" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
-  <meta property="og:description" content="音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。複数ファイルの一括変換で音声の整理や編集を効率化。Microsoft Storeで購入できます。">
-  <meta property="og:url" content="https://mojosoftjp.github.io/sakutto-audioconverter/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Mojosoft">
-  <meta property="og:locale" content="ja_JP">
-  <meta name="twitter:title" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
-  <meta name="twitter:description" content="音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。複数ファイルの一括変換で音声の整理や編集を効率化。Microsoft Storeで購入できます。">
-  <meta property="og:image" content="https://mojosoftjp.github.io/sakutto-audioconverter/a1.png">
-  <meta name="twitter:image" content="https://mojosoftjp.github.io/sakutto-audioconverter/a1.png">
-  <meta property="og:image:alt" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
-  <meta name="twitter:image:alt" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
-  <meta property="og:image:width" content="1272">
-  <meta property="og:image:height" content="921">
-  <meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。小さく録れた声も、ノーマライズで聞きやすい音量にそろえられます。複数ファイルを一括処理。処理はすべてPCの中で行います。">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://mojosoftjp.github.io/sakutto-audioconverter/">
+<link rel="alternate" href="https://mojosoftjp.github.io/sakutto-audioconverter/" hreflang="ja">
+<link rel="alternate" href="https://mojosoftjp.github.io/sakutto-audioconverter/en/" hreflang="en">
+<link rel="alternate" href="https://mojosoftjp.github.io/sakutto-audioconverter/" hreflang="x-default">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:title" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
+<meta property="og:description" content="音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。小さく録れた声も、ノーマライズで聞きやすい音量にそろえられます。複数ファイルを一括処理。処理はすべてPCの中で行います。">
+<meta property="og:url" content="https://mojosoftjp.github.io/sakutto-audioconverter/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mojosoft">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:title" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
+<meta name="twitter:description" content="音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。小さく録れた声も、ノーマライズで聞きやすい音量にそろえられます。複数ファイルを一括処理。処理はすべてPCの中で行います。">
+<meta property="og:image" content="https://mojosoftjp.github.io/sakutto-audioconverter/a1.png">
+<meta name="twitter:image" content="https://mojosoftjp.github.io/sakutto-audioconverter/a1.png">
+<meta property="og:image:alt" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
+<meta name="twitter:image:alt" content="さくっと音声変換｜音声ファイルの一括変換・音量調整・カット">
+<meta property="og:image:width" content="1272">
+<meta property="og:image:height" content="921">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -134,7 +42,7 @@ footer .copyright{opacity:.7;margin-top:8px}
       "name": "さくっと音声変換",
       "alternateName": "SakuttoAudio",
       "url": "https://mojosoftjp.github.io/sakutto-audioconverter/",
-      "description": "音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。複数ファイルの一括変換で音声の整理や編集を効率化。Microsoft Storeで購入できます。",
+      "description": "音声ファイルの形式変換、音量のノーマライズ・調整、トリミングに対応するWindows用ソフト。小さく録れた声も、ノーマライズで聞きやすい音量にそろえられます。複数ファイルを一括処理。処理はすべてPCの中で行います。",
       "image": "https://mojosoftjp.github.io/sakutto-audioconverter/a1.png",
       "operatingSystem": "Windows",
       "applicationCategory": "MultimediaApplication",
@@ -184,262 +92,172 @@ footer .copyright{opacity:.7;margin-top:8px}
 }
 </script>
 </head>
-<body data-lang="ja">
+<body>
 
-<!-- Mojosoft Header -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06);height:44px;display:flex;align-items:center;padding:0 24px;">
-  <a href="https://mojosoft.biz/" style="font-size:18px;font-weight:700;color:#1D1D1F;text-decoration:none;font-family:'Noto Sans JP',sans-serif;">Mojosoft</a>
-</nav>
-<div style="height:44px;"></div>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="./"><img src="logo-96.png" alt="" width="30" height="30">さくっと音声変換</a>
+  <nav class="site-nav" aria-label="ページ内">
+    <a href="#how">使い方</a><a href="#features">できること</a><a href="#formats">対応形式</a><a href="#faq">よくある質問</a><a href="#support">サポート</a>
+  </nav>
+  <a class="lang" href="en/" hreflang="en" lang="en">EN</a>
+  <a class="btn btn-main btn-sm" href="https://apps.microsoft.com/detail/9MT5RW1K95DD?cid=lp-index">Store で入手</a>
+</div></header>
 
-<!-- Language toggle -->
-<button class="lang-toggle" onclick="toggleLang()">
-  <span class="ja">EN</span>
-  <span class="en">日本語</span>
-</button>
+<main>
+<div class="hero"><div class="wrap">
+  <h1><span class="eyebrow">さくっと音声変換 ― Windows 用</span>小さく録れた声も、<span class="nb"><b>聞きやすい音量</b>に。</span></h1>
+  <p class="lede">音量のノーマライズで、録音の大きさをそろえます。MP3・WAV・FLAC などへの形式の変換、波形を見ながらの切り出しも、このアプリひとつで。処理はすべて PC の中で行います。</p>
 
-<!-- Hero -->
-<header class="hero">
-  <div class="ja"><div class="tagline">Windows 用音声変換ツール</div></div>
-  <div class="en"><div class="tagline">All-in-One Audio Converter for Windows</div></div>
-  <div class="hero-title">
-    <img src="logo.png" alt="SakuttoAudio icon">
-    <h1><span class="ja">さくっと音声変換</span><span class="en">SakuttoAudio</span></h1>
-  </div>
-  <p class="subtitle">
-    <span class="ja">フォーマット変換・音量調整・トリミング<br>3つの機能をシンプルなひとつのアプリに。</span>
-    <span class="en">Convert, Adjust Volume &amp; Trim<br>3 essential features in one simple app.</span>
-  </p>
-  <div class="formats">
-    <span class="format-badge">MP3</span>
-    <span class="format-badge">WAV</span>
-    <span class="format-badge">FLAC</span>
-    <span class="format-badge">AAC</span>
-    <span class="format-badge">OGG</span>
-    <span class="format-badge">WMA</span>
-    <span class="format-badge">M4A</span>
-    <span class="format-badge">OPUS</span>
-  </div>
-  <div class="cta-group">
-    <a href="https://www.microsoft.com/store/apps/9MT5RW1K95DD" class="btn btn-primary">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
-      <span class="ja">Microsoft Store で入手</span><span class="en">Get on Microsoft Store</span>
-    </a>
-    <a href="#features" class="btn btn-outline">
-      <span class="ja">機能を見る</span><span class="en">View Features</span>
-    </a>
-  </div>
-</header>
-
-<!-- Feature overview cards -->
-<section id="features" class="section">
-  <div class="container">
-    <h2 class="section-title"><span class="ja">3つの機能、ぜんぶ入り</span><span class="en">3 Features, All Included</span></h2>
-    <p class="section-desc"><span class="ja">音声の変換・編集がこのアプリひとつで完結します。</span><span class="en">One app covers all the audio tasks you need.</span></p>
-    <div class="feature-grid">
-      <!-- 1: Convert -->
-      <div class="feature-card">
-        <span class="feature-icon">&#x1F504;</span>
-        <span class="feature-tag convert"><span class="ja">変換</span><span class="en">Convert</span></span>
-        <h3><span class="ja">一括フォーマット変換</span><span class="en">Batch Format Conversion</span></h3>
-        <p><span class="ja">MP3・WAV・FLAC・AAC・OGGなど主要な音声形式に一括変換。複数ファイルをまとめて処理。</span><span class="en">Batch convert to MP3, WAV, FLAC, AAC, OGG, and more. Process multiple files at once.</span></p>
-        <ul>
-          <li><span class="ja">ビットレート指定（64k〜320k）</span><span class="en">Bitrate selection (64k–320k)</span></li>
-          <li><span class="ja">サンプルレート指定</span><span class="en">Sample rate control</span></li>
-          <li><span class="ja">ドラッグ＆ドロップ対応</span><span class="en">Drag &amp; drop supported</span></li>
-        </ul>
-      </div>
-      <!-- 2: Volume -->
-      <div class="feature-card">
-        <span class="feature-icon">&#x1F50A;</span>
-        <span class="feature-tag volume"><span class="ja">音量調整</span><span class="en">Volume</span></span>
-        <h3><span class="ja">音量ノーマライズ &amp; 調整</span><span class="en">Volume Normalize &amp; Adjust</span></h3>
-        <p><span class="ja">バラバラな音量を自動で最適化、またはdB単位で微調整。複数ファイルの一括処理に対応。</span><span class="en">Auto-normalize uneven volumes, or fine-tune by dB. Batch processing supported.</span></p>
-        <ul>
-          <li><span class="ja">ノーマライズ（自動最適化）</span><span class="en">Normalize (auto-optimize)</span></li>
-          <li><span class="ja">dB指定で音量増減</span><span class="en">Adjust volume by dB</span></li>
-          <li><span class="ja">一括処理対応</span><span class="en">Batch processing</span></li>
-        </ul>
-      </div>
-      <!-- 3: Trim -->
-      <div class="feature-card">
-        <span class="feature-icon">&#x2702;&#xFE0F;</span>
-        <span class="feature-tag trim"><span class="ja">トリミング</span><span class="en">Trim</span></span>
-        <h3><span class="ja">音声トリミング</span><span class="en">Audio Trimming</span></h3>
-        <p><span class="ja">波形を見ながらスライダーで直感的に開始・終了を指定。必要な部分だけ切り出し。</span><span class="en">View the waveform and set start/end with sliders. Extract just the part you need.</span></p>
-        <ul>
-          <li><span class="ja">波形表示で視覚的に操作</span><span class="en">Visual waveform display</span></li>
-          <li><span class="ja">再生しながら位置指定</span><span class="en">Set position during playback</span></li>
-          <li><span class="ja">「現在位置」ボタンで簡単指定</span><span class="en">"Current position" button</span></li>
-        </ul>
-      </div>
+  <div class="result">
+    <figure class="result-shot pair">
+      <div class="pair-item"><span class="pair-label">処理前</span><div class="frame"><img src="ac_ja_before.png" alt="処理前のファイルをアプリの波形表示で開いた画面。音が小さく、波形がほとんど平らに見える" width="1248" height="355"></div></div>
+      <div class="pair-item after"><span class="pair-label">ノーマライズ後</span><div class="frame"><img src="ac_ja_after.png" alt="ノーマライズ後のファイルを同じ波形表示で開いた画面。声の波形がはっきり大きく見える" width="1248" height="355"></div></div>
+      <figcaption>さくっと音声変換の実際の画面（トリミングのタブの波形表示）</figcaption>
+    </figure>
+    <div class="nums">
+      <h2 id="h-demo">小さく録れた声を、聞きやすい音量に</h2>
+      <p class="nums-src">2 枚の画面は、同じ録音の処理前と処理後のファイルを、アプリの波形表示で開いたところです。</p>
+      <ol class="nums-steps"><li>「音量調整」のタブにファイルを入れる</li><li>モードを「ノーマライズ (自動)」に</li><li>「処理開始」を押す</li></ol>
+      <div class="nums-row after"><span>音の大きさ</span><b>+26<small>dB</small></b></div>
+      <p class="nums-note">ラウドネス −42.2 → −15.9 LUFS（FFmpeg の ebur128 で測定）。宣伝動画のナレーション（30 秒）の音量を 22 dB 下げた録音を、ノーマライズした結果です。ノーマライズは、放送などで使われる基準（EBU R128）に合わせ、−16 LUFS を目安に音量をそろえます。</p>
     </div>
   </div>
-</section>
 
-<!-- Screenshots -->
-<section class="section" style="background:#fff">
-  <div class="container">
-    <h2 class="section-title"><span class="ja">スクリーンショット</span><span class="en">Screenshots</span></h2>
-    <p class="section-desc"><span class="ja">実際のアプリの画面をご覧ください。</span><span class="en">See the app in action.</span></p>
-
-    <!-- 1: Convert -->
-    <div class="feature-row">
-      <div class="feature-img">
-        <img class="ja" src="a1.png" alt="一括変換の画面" loading="lazy">
-        <img class="en" src="a_en1.png" alt="Batch Convert" loading="lazy">
-      </div>
-      <div class="feature-info">
-        <span class="feature-tag convert"><span class="ja">変換</span><span class="en">Convert</span></span>
-        <span class="feature-icon">&#x1F504;</span>
-        <h3><span class="ja">一括フォーマット変換</span><span class="en">Batch Format Conversion</span></h3>
-        <p><span class="ja">複数の音声ファイルをドラッグ＆ドロップで追加し、MP3・WAV・FLAC・AAC・OGGに一括変換。ビットレートやサンプルレートも設定可能。</span><span class="en">Add multiple audio files via drag &amp; drop, then batch convert to MP3, WAV, FLAC, AAC, or OGG. Configure bitrate and sample rate.</span></p>
-      </div>
-    </div>
-
-    <!-- 2: Volume -->
-    <div class="feature-row reverse">
-      <div class="feature-img">
-        <img class="ja" src="a2.png" alt="音量調整の画面" loading="lazy">
-        <img class="en" src="a_en2.png" alt="Volume Adjust" loading="lazy">
-      </div>
-      <div class="feature-info">
-        <span class="feature-tag volume"><span class="ja">音量調整</span><span class="en">Volume</span></span>
-        <span class="feature-icon">&#x1F50A;</span>
-        <h3><span class="ja">音量ノーマライズ &amp; 調整</span><span class="en">Volume Normalize &amp; Adjust</span></h3>
-        <p><span class="ja">ノーマライズで音量を自動最適化、またはdBスライダーで手動調整。複数ファイルを一括処理。</span><span class="en">Auto-normalize volume levels, or manually adjust with a dB slider. Process multiple files in one batch.</span></p>
-      </div>
-    </div>
-
-    <!-- 3: Trim -->
-    <div class="feature-row">
-      <div class="feature-img">
-        <img class="ja" src="a3.png" alt="トリミングの画面" loading="lazy">
-        <img class="en" src="a_en3.png" alt="Audio Trimming" loading="lazy">
-      </div>
-      <div class="feature-info">
-        <span class="feature-tag trim"><span class="ja">トリミング</span><span class="en">Trim</span></span>
-        <span class="feature-icon">&#x2702;&#xFE0F;</span>
-        <h3><span class="ja">音声トリミング</span><span class="en">Audio Trimming</span></h3>
-        <p><span class="ja">波形表示を見ながらスライダーで開始・終了位置を指定。再生中に「現在位置」ボタンで一発セット。必要な部分だけサクッと切り出し。</span><span class="en">View the waveform and use sliders to set start/end positions. Use the "current position" button during playback for one-tap positioning.</span></p>
-      </div>
+  <div class="ticket">
+    <div class="l"><b>いつもの音声の作業を、ひとつのアプリで。</b><p>Microsoft Store から購入して、すぐに使えます。アプリのアカウント登録はいりません。</p></div>
+    <div class="r">
+      <a class="btn btn-main" href="https://apps.microsoft.com/detail/9MT5RW1K95DD?cid=lp-index">Microsoft Store で入手</a>
+      <a class="btn btn-line" href="#features">できることを見る</a>
     </div>
   </div>
-</section>
-
-<!-- Why choose -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title"><span class="ja">選ばれる理由</span><span class="en">Why Choose SakuttoAudio</span></h2>
-    <p class="section-desc"><span class="ja">日常の音声作業を、もっとシンプルに。</span><span class="en">Make your daily audio tasks simpler.</span></p>
-    <div class="points">
-      <div class="point">
-        <div class="point-icon">&#x26A1;</div>
-        <div>
-          <h3><span class="ja">すぐ使える</span><span class="en">Ready to Use</span></h3>
-          <p><span class="ja">インストールしたらすぐ起動。アカウント登録もログインも不要です。</span><span class="en">Launch right after install. No account signup or login required.</span></p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="point-icon">&#x1F3B5;</div>
-        <div>
-          <h3><span class="ja">8フォーマット対応</span><span class="en">8+ Formats Supported</span></h3>
-          <p><span class="ja">MP3・WAV・FLAC・AAC・OGG・WMA・M4A・OPUS。主要な音声形式をすべてカバー。</span><span class="en">MP3, WAV, FLAC, AAC, OGG, WMA, M4A, OPUS. All common audio formats covered.</span></p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="point-icon">&#x1F30D;</div>
-        <div>
-          <h3><span class="ja">日本語/英語対応</span><span class="en">Japanese / English</span></h3>
-          <p><span class="ja">OSの言語設定に合わせて自動で切り替わります。</span><span class="en">Automatically switches based on your OS language setting.</span></p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="point-icon">&#x1F512;</div>
-        <div>
-          <h3><span class="ja">完全オフライン</span><span class="en">Fully Offline</span></h3>
-          <p><span class="ja">すべての処理はPC上で完結。ファイルが外部に送信されることはありません。</span><span class="en">All processing stays on your PC. Your files are never sent to any server.</span></p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="point-icon">&#x1F4B0;</div>
-        <div>
-          <h3><span class="ja">買い切り</span><span class="en">One-Time Purchase</span></h3>
-          <p><span class="ja">月額課金なし。一度購入すればずっと使えます。</span><span class="en">No subscription fees. Buy once, use forever.</span></p>
-        </div>
-      </div>
-      <div class="point">
-        <div class="point-icon">&#x1F680;</div>
-        <div>
-          <h3><span class="ja">高性能</span><span class="en">High Performance</span></h3>
-          <p><span class="ja">FFmpegベースの高速エンコード。プログレスバーで進捗をリアルタイム確認。</span><span class="en">FFmpeg-based high-speed encoding. Real-time progress bar included.</span></p>
-        </div>
-      </div>
-    </div>
+  <div class="assure">
+    <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>買い切り・月額なし</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>処理はすべて PC の中で</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>元のファイルは上書きしない</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>FFmpeg 内蔵・ほかのソフトは不要</span>
   </div>
-</section>
+</div></div>
 
-<!-- How to use -->
-<section class="section" style="background:#fff">
-  <div class="container">
-    <h2 class="section-title"><span class="ja">使い方はかんたん 3ステップ</span><span class="en">Easy 3-Step Workflow</span></h2>
-    <p class="section-desc"><span class="ja">音声変換がこんなにラクになります。</span><span class="en">Audio conversion has never been this easy.</span></p>
-    <div class="steps">
-      <div class="step">
-        <h3><span class="ja">タブを選ぶ</span><span class="en">Choose a Tab</span></h3>
-        <p><span class="ja">変換・音量調整・トリミングから、やりたい操作をクリック。</span><span class="en">Click the tab for the operation you want: convert, volume, or trim.</span></p>
-      </div>
-      <div class="step">
-        <h3><span class="ja">ファイルを入れる</span><span class="en">Add Your Files</span></h3>
-        <p><span class="ja">音声ファイルをドラッグ＆ドロップ、またはボタンで選択。</span><span class="en">Drag &amp; drop audio files, or select them with the file picker.</span></p>
-      </div>
-      <div class="step">
-        <h3><span class="ja">実行！</span><span class="en">Execute!</span></h3>
-        <p><span class="ja">ボタンをクリックするだけ。処理結果はすぐに保存されます。</span><span class="en">Click the button and you're done. Results are saved instantly.</span></p>
-      </div>
-    </div>
+<section id="how"><div class="wrap">
+  <h2 class="h2 center">使い方は、3 つの操作だけ。</h2>
+  <div class="row">
+    <div class="txt"><p class="verb"><small>まず</small>音声を入れる</p><p>音声ファイルをドラッグ＆ドロップ。変換と音量調整は、何本でもまとめて処理できます。MP3・WAV・M4A など、よく使う形式をそのまま読み込めます。</p></div>
+    <div class="frame"><img src="a1.png" alt="9 本の音声ファイルを MP3 にまとめて変換している画面" width="1272" height="921" loading="lazy"></div>
   </div>
-</section>
-
-<!-- Support -->
-<section id="support" class="section">
-  <div class="container">
-    <h2 class="section-title"><span class="ja">サポート</span><span class="en">Support</span></h2>
-    <p class="section-desc"><span class="ja">お困りの際はお気軽にお問い合わせください。</span><span class="en">Feel free to contact us if you need help.</span></p>
-    <div style="max-width:560px;margin:0 auto;text-align:center">
-      <p style="margin-bottom:16px">
-        <strong><span class="ja">不具合の報告・機能のリクエスト</span><span class="en">Bug Reports &amp; Feature Requests</span></strong><br>
-        <span class="ja"><a href="https://github.com/mojosoftjp/sakutto-audioconverter/issues">GitHub Issues</a> からご報告いただけます。</span>
-        <span class="en">Report via <a href="https://github.com/mojosoftjp/sakutto-audioconverter/issues">GitHub Issues</a>.</span>
-      </p>
-      <p style="margin-bottom:16px">
-        <strong><span class="ja">お問い合わせ</span><span class="en">Contact</span></strong><br>
-        Email: <a href="mailto:support@mojosoft.biz">support@mojosoft.biz</a>
-      </p>
-      <p style="color:var(--muted);font-size:.9rem;margin-top:32px">
-        <a href="privacy.html"><span class="ja">プライバシーポリシー</span><span class="en">Privacy Policy</span></a>
-      </p>
-    </div>
+  <div class="row">
+    <div class="txt"><p class="verb"><small>つぎに</small>仕上がりを選ぶ</p><p>形式やビットレート、音量の整え方を選びます。音量調整は「ノーマライズ (自動)」と、dB で指定する「音量増減」の 2 通りです。</p></div>
+    <div class="frame"><img src="ac_ja_volume.png" alt="音量調整のタブでノーマライズ（自動）を選び、処理が終わった画面" width="1272" height="921" loading="lazy"></div>
   </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <div class="footer-links">
-    <a href="#features"><span class="ja">機能</span><span class="en">Features</span></a>
-    <a href="#support"><span class="ja">サポート</span><span class="en">Support</span></a>
-    <a href="privacy.html"><span class="ja">プライバシーポリシー</span><span class="en">Privacy Policy</span></a>
-    <a href="https://github.com/mojosoftjp/sakutto-audioconverter">GitHub</a>
+  <div class="row">
+    <div class="txt"><p class="verb"><small>あとは</small>開始を押す</p><p>新しいファイルとして保存するので、元のファイルはそのまま残ります。切り出しは、波形を見ながら開始と終了の位置を決められます。</p></div>
+    <div class="frame"><img src="a3.png" alt="波形を見ながら開始と終了の位置を決めて切り出す画面" width="1272" height="921" loading="lazy"></div>
   </div>
-  <div class="copyright">&copy; 2026 Mojosoft. All rights reserved.</div>
-</footer>
+</div></section>
 
-<script>
-function setLang(lang) {
-  if (lang !== "ja") window.location.assign("https://mojosoftjp.github.io/sakutto-audioconverter/en/" + window.location.hash);
-}
-function toggleLang() { setLang("en"); }
-</script>
+<section id="features" class="soft"><div class="wrap">
+  <div class="center"><h2 class="h2">音声の「ちょっと直したい」を、ひとつのアプリで。</h2><p class="sub">よく使う 3 つの作業を、タブを切り替えるだけで。</p></div>
+  <div class="features three">
+    <div class="feature"><svg viewBox="0 0 24 24"><path d="M2 12h3l2-6 3 12 3-9 2 5 2-2h5"/></svg><h3>音量をそろえる（ノーマライズ）</h3><p>小さすぎる・大きすぎる録音を、聞きやすい大きさにそろえます。</p><ul><li>放送などの基準（EBU R128）に合わせ、−16 LUFS を目安に</li><li>何本でもまとめて</li><li>サンプルレートは元のまま（MP3・AAC・OGG は最大 48 kHz）</li></ul></div>
+    <div class="feature"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg><h3>音量を上げ下げ</h3><p>上げたい・下げたい分だけ、dB で指定します。</p><ul><li>−20〜+20 dB の範囲をスライダーで</li><li>何本でも同じだけ、まとめて</li></ul></div>
+    <div class="feature"><svg viewBox="0 0 24 24"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg><h3>形式の変換</h3><p>MP3・WAV・FLAC・AAC（M4A）・OGG に、まとめて変換します。</p><ul><li>ビットレート（128・192・256・320 kbps）</li><li>サンプルレート（元のまま・44.1・48 kHz）</li><li>WMA・AIFF・Opus・AC3 なども読み込める</li></ul></div>
+    <div class="feature"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></svg><h3>トリミング</h3><p>波形を見ながら、必要な部分だけを切り出します。</p><ul><li>再生しながら「現在位置」を開始・終了に</li><li>時刻は 1/1000 秒まで入力できる</li><li>MP3・WAV・FLAC・AAC（M4A）・OGG で保存</li></ul></div>
+    <div class="feature"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 13h3M8 16h6"/></svg><h3>入れてすぐ使える</h3><p>音声の処理に使う FFmpeg をアプリに内蔵しています。</p><ul><li>ほかのソフトのインストールは不要</li><li>進み具合をバーで表示、途中で止めることも</li><li>処理できなかったファイルは理由を表示</li></ul></div>
+    <div class="feature"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><h3>元のファイルはそのまま</h3><p>結果はいつも、新しいファイルとして保存します。</p><ul><li>保存先は元と同じ場所か、指定したフォルダ</li><li>同じ名前があるときは番号を付けて、上書きしない</li></ul></div>
+  </div>
+</div></section>
 
+<section id="use-cases"><div class="wrap">
+  <div class="center"><h2 class="h2">利用シーン</h2><p class="sub">お手元の音声ファイルを、使いたい形・大きさにそろえます。</p></div>
+  <div class="cases">
+    <div class="case"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div><div><h3>小さく録れた会議や講義の録音を</h3><p>ノーマライズで、聞き取りやすい音量にそろえられます。聞き直しや文字起こしの前に。</p></div></div>
+    <div class="case"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div><h3>BGM や効果音の音量をそろえる</h3><p>何本ものファイルをまとめて処理して、音の大きさのばらつきをなくします。</p></div></div>
+    <div class="case"><div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/></svg></div><div><h3>スマホの録音（M4A）や WAV を MP3 に</h3><p>どの機器でも再生しやすい MP3 に、まとめて変換できます。</p></div></div>
+    <div class="case"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></svg></div><div><h3>必要な部分だけを切り出す</h3><p>長い録音から、使いたい部分だけを波形を見ながら切り出せます。</p></div></div>
+  </div>
+</div></section>
+
+<section id="data-flow" class="soft"><div class="wrap">
+  <div class="center"><h2 class="h2">音声は、PC の外に出ません</h2><p class="sub">オンラインの変換サイトと違い、音声をどこかにアップロードすることはありません。</p></div>
+  <div class="flow">
+    <div class="pc"><h3>PC の中で終わる処理</h3><ul><li>音声の読み込み・波形の表示・試し聞き</li><li>変換・音量調整・切り出し（内蔵の FFmpeg で）</li><li>新しいファイルとしての保存</li></ul></div>
+    <div class="net"><h3>インターネットを使う場面</h3><ul><li>音声の処理では使いません</li><li>Microsoft Store のページが開くのは、レビューのお願いで「はい」を選んだときだけです</li></ul></div>
+  </div>
+  <p class="flow-note center">開発元（Mojosoft）に音声やファイル名が送られることはありません。アカウント登録も、利用状況の収集もありません。詳しくは <a href="privacy.html">プライバシーポリシー</a> をご覧ください。</p>
+</div></section>
+
+<section id="formats"><div class="wrap">
+  <div class="center"><h2 class="h2">対応形式</h2><p class="sub">よく使われる音声の形式を、そのまま読み込めます。</p></div>
+  <table class="spec">
+    <tr><th scope="row">読み込める音声</th><td><span>MP3</span><span>WAV</span><span>FLAC</span><span>AAC</span><span>M4A</span><span>OGG</span><span>WMA</span><span>AIFF</span><span>Opus</span><span>AC3</span><small>トリミングの試し聞きは、形式によってはできないことがあります（その場合も切り出せます）。</small></td></tr>
+    <tr><th scope="row">書き出せる形式</th><td><span>MP3</span><span>WAV</span><span>FLAC</span><span>AAC（M4A）</span><span>OGG</span><br>変換・音量調整・トリミングのどれでも選べます</td></tr>
+    <tr><th scope="row">保存先と名前</th><td>元と同じ場所、または指定したフォルダ。名前は元のまま（形式に合わせて拡張子が変わります）で、同じ名前のファイルがあるときは「_1」などの番号を付けて、上書きしません。</td></tr>
+    <tr><th scope="row">表示言語</th><td>日本語・英語（Windows の言語設定に合わせて切り替わります）</td></tr>
+    <tr><th scope="row">動作環境</th><td>Windows 10（バージョン 2004）以降・64 ビット<small>音声の処理には FFmpeg（LGPL v2.1）を使っています（アプリに内蔵）。</small></td></tr>
+  </table>
+</div></section>
+
+<section id="faq" class="soft"><div class="wrap">
+  <h2 class="h2 center">よくある質問（FAQ）</h2>
+  <div class="faq">
+    <details open><summary>小さく録れた録音を、聞きやすい音量にできますか？</summary><p>はい。「音量調整」で「ノーマライズ (自動)」を選んで処理すると、放送などで使われる基準（EBU R128）に合わせて、−16 LUFS を目安に音量をそろえます。</p></details>
+    <details><summary>何本ものファイルの音量を、まとめてそろえられますか？</summary><p>はい。ファイルをまとめて入れれば、順番に自動で処理します。</p></details>
+    <details><summary>元のファイルは残りますか？</summary><p>はい。新しいファイルとして保存します。同じ名前のファイルがあるときは番号を付けるので、上書きしません。</p></details>
+    <details><summary>スマホの録音（M4A）を MP3 にできますか？</summary><p>はい。「変換」で MP3 を選べば、まとめて変換できます。</p></details>
+    <details><summary>曲や録音の一部だけを切り出せますか？</summary><p>はい。「トリミング」で波形を見ながら、開始と終了の位置を決めて切り出せます。</p></details>
+    <details><summary>音量を少しだけ上げたり下げたりできますか？</summary><p>はい。「音量増減 (dB指定)」で、−20〜+20 dB の範囲で指定できます。</p></details>
+    <details><summary>インターネットにつながっていなくても、音声を処理できますか？</summary><p>はい。変換も音量調整も、アプリに内蔵した FFmpeg で PC の中で行います。</p></details>
+    <details><summary>料金は買い切りですか？</summary><p>はい。Microsoft Store で一度購入すれば、月額料金なしで使い続けられます。</p></details>
+  </div>
+</div></section>
+
+<section id="changelog"><div class="wrap">
+  <div class="center"><h2 class="h2">更新履歴</h2><p class="sub">Microsoft Store 版は自動で最新版に更新されます。</p></div>
+  <div class="log">
+    <article>
+      <h3>v1.1.0</h3><time datetime="2026-09-07">2026年9月7日</time>
+      <ul>
+        <li>音量ノーマライズ後の出力が 192kHz になり、ファイルサイズが数倍になる問題を修正しました（元のサンプルレートを維持します）</li>
+        <li>変換に失敗したファイルについて、理由（FFmpeg のメッセージ）を表示するようにしました</li>
+        <li>変換・音量調整・切り出しの進捗をファイル内でも表示するようにしました（1本の長いファイルでも進捗バーが動きます）</li>
+        <li>キャンセルや失敗時に書きかけのファイルが残らないようにしました</li>
+        <li>プレビュー再生に対応していない形式（OGG など）を選んだときに、その旨を表示するようにしました</li>
+      </ul>
+    </article>
+    <article>
+      <h3>v1.0.0</h3><time datetime="2026-03-14">2026年3月14日</time>
+      <ul><li>Microsoft Store で公開しました（変換・音量調整・トリミング）</li></ul>
+    </article>
+  </div>
+</div></section>
+
+<section id="support" class="soft"><div class="wrap">
+  <h2 class="h2 center">サポート</h2>
+  <div class="support">
+    <p><b>不具合の報告・機能のリクエスト</b><br><a href="https://github.com/mojosoftjp/sakutto-audioconverter/issues">GitHub Issues</a> からご報告いただけます。</p>
+    <p><b>お問い合わせ</b><br>Email: <a href="mailto:support@mojosoft.biz">support@mojosoft.biz</a></p>
+    <p><a href="privacy.html">プライバシーポリシー</a></p>
+  </div>
+</div></section>
+</main>
+
+<div class="band final on-dark"><div class="wrap">
+  <h2 class="h2">次は、あなたの音声の番です。</h2>
+  <p>ドラッグ＆ドロップして、開始を押すだけ。</p>
+  <div class="btns">
+    <a class="btn btn-main" href="https://apps.microsoft.com/detail/9MT5RW1K95DD?cid=lp-index">Microsoft Store で入手</a>
+  </div>
+</div></div>
+
+<footer class="site-footer"><div class="wrap">
+  <div class="foot-grid">
+    <div><h4>さくっと音声変換</h4><div class="foot-links"><a href="#how">使い方</a><a href="#features">できること</a><a href="#formats">対応形式</a><a href="#faq">よくある質問</a><a href="#changelog">更新履歴</a><a href="#support">サポート</a><a href="privacy.html">プライバシーポリシー</a><a href="https://github.com/mojosoftjp/sakutto-audioconverter">GitHub</a></div></div>
+    <div><h4>さくっとシリーズ</h4><div class="foot-links"><a href="https://mojosoftjp.github.io/sakutto-videotranslator/">さくっと動画翻訳</a><a href="https://mojosoftjp.github.io/sakutto-pdf/">さくっとPDF</a><a href="https://mojosoftjp.github.io/sakutto-imageconverter/">さくっと画像変換</a><a href="https://mojosoftjp.github.io/sakutto-videoconverter/">さくっと動画変換</a><a href="https://mojosoftjp.github.io/">Mojosoft のアプリ一覧</a></div></div>
+  </div>
+  <p class="copyright">&copy; 2026 Mojosoft. All rights reserved.</p>
+</div></footer>
+
+<div class="sticky-cta">
+  <a class="btn btn-main" href="https://apps.microsoft.com/detail/9MT5RW1K95DD?cid=lp-index">Microsoft Store で入手</a>
+</div>
 </body>
 </html>
